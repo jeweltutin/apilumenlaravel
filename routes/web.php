@@ -14,3 +14,26 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->group(['prefix' => 'api/v1'], function () use ($router){
+
+    //posts
+	$router->group(['prefix' => 'posts'], function () use ($router){
+        $router->post('add','PostsController@createPost');
+        $router->get('view/{id}','PostsController@viewPost');
+        $router->put('edit/{id}','PostsController@updatePost');
+        $router->delete('delete/{id}','PostsController@deletePost');
+        $router->get('index','PostsController@index');
+    });
+
+    //users
+    $router->group(['prefix' => 'users'], function () use ($router){
+        $router->post('add','UsersController@add');
+        $router->get('view/{id}','UsersController@view');
+        $router->put('edit/{id}','UsersController@edit');
+        $router->delete('delete/{id}','UsersController@delete');
+        $router->get('index','UsersController@index');
+    });
+
+});
+
