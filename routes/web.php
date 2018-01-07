@@ -18,17 +18,22 @@ $router->get('/', function () use ($router) {
 $router->group(['prefix' => 'api/v1'], function () use ($router){
 
     //posts
-	$router->group(['prefix' => 'posts'], function () use ($router){
+	//$router->group(['prefix' => 'posts', 'middleware' => 'auth'], function () use ($router){  //For all posts
+    //For specific
+    $router->group(['prefix' => 'posts'], function() use ($router){ 
+        $router->get('index','PostsController@index');
         $router->post('add','PostsController@createPost');
         $router->get('view/{id}','PostsController@viewPost');
         $router->put('edit/{id}','PostsController@updatePost');
-        $router->delete('delete/{id}','PostsController@deletePost');
-        $router->get('index','PostsController@index');
+        $router->group(['middleware' => 'auth'], function ($router){
+            $router->delete('delete/{id}','PostsController@deletePost');
+        });      
     });
 
     //users
     $router->group(['prefix' => 'users'], function () use ($router){
         $router->post('add','UsersController@add');
+        //$router->put('add','UsersController@add');
         $router->get('view/{id}','UsersController@view');
         $router->put('edit/{id}','UsersController@edit');
         $router->delete('delete/{id}','UsersController@delete');

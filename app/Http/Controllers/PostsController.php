@@ -8,6 +8,22 @@ use Illuminate\Http\Request;
  
 class PostsController extends Controller{
 
+	/*public function __construct()
+    {
+        $this->middleware('auth');  //For all functionality need authentication
+        $this->middleware('auth',['only' => ['edit','delete']]);  
+
+        $this->middleware('log', ['only' => [
+            'fooAction',
+            'barAction',
+        ]]);
+
+        $this->middleware('subscribed', ['except' => [
+            'fooAction',
+            'barAction',
+        ]]);
+    }*/
+
 
 //create new post
 	public function createPost(Request $request){
